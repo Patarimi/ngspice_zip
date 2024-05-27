@@ -16,8 +16,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
+      - name: Install winget - Windows
+        uses: Cyberboss/install-winget@v1
       - name: Install Software
         run: |
           winget install 7zip.7zip
