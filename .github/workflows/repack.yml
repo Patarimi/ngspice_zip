@@ -11,6 +11,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
+    env:
+      version: 42
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -25,9 +27,24 @@ jobs:
         run: |
           7z x ngspice-42_64.7z
           7z a ngspice-42_64.zip .\Spice64\
-      - name: Export zip
-        uses: actions/upload-artifact@v4
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
         with:
-          name: ngspice-42_64
-          path: |
-            ngspice-42_64.zip
+          draft: false
+          prerelease: false
+          release_name: ${{ env.version }}
+          tag_name: ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: upload windows artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ngspice-42_64.zip
+          asset_name: ngspice-42_64.zip
+          asset_content_type: application/zip
+  
