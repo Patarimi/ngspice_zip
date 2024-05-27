@@ -28,6 +28,6 @@ jobs:
       - name: Export zip
         uses: actions/upload-artifact@v4
         with:
-          name: zip
+          name: ngspice-42_64
           path: |
             ngspice-42_64.zip
