@@ -20,7 +20,7 @@ jobs:
         uses: Cyberboss/install-winget@v1
       - name: Install Software
         run: |
-          winget install 7zip.7zip
+          winget install --disable-interactivity 7zip.7zip
       - name: Extract and Recompress
         run: |
           7z x ngspice-42_64.7z
