@@ -32,4 +32,5 @@ jobs:
         with:
           files: ngspice-42_64.zip
           body: First zip package for ngspice 42
+          tag_name: v42
   
