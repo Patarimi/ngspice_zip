@@ -22,7 +22,7 @@ jobs:
         uses: Cyberboss/install-winget@v1
       - name: Extract and Recompress
         run: |
-          $url = "https://deac-ripa.dl.sourceforge.net/projects/ngspice/files/ng-spice-rework/${{env.version}}/ngspice-${{env.version}}_64.7z?viasf=1"
+          $url = "https://deac-riga.dl.sourceforge.net/project/ngspice/ng-spice-rework/${{env.version}}/ngspice-${{env.version}}_64.7z?viasf=1"
           Invoke-WebRequest -Uri $url -OutFile ngspice.7z
           7z x ngspice.7z
           7z a ngspice-${{env.version}}_64.zip .\Spice64\
