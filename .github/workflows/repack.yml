@@ -12,7 +12,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
     env:
-      version: 42
+      version: 44
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -25,12 +25,14 @@ jobs:
           winget install --disable-interactivity --accept-source-agreements --accept-package-agreements 7zip.7zip
       - name: Extract and Recompress
         run: |
-          7z x ngspice-42_64.7z
-          7z a ngspice-42_64.zip .\Spice64\
+          $url = "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/${{env.version}}/ngspice-${{env.version}}_64.7z/download"
+          Invoke-WebRequest -Uri $url -OutFile ngspice.7z
+          7z x ngspice.7z
+          7z a ngspice-${{env.version}}_64.zip .\Spice64\
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ngspice-42_64.zip
-          body: First zip package for ngspice 42
-          tag_name: v42
+          files: ngspice-${{env.version}}_64.zip
+          body: Zip package for ngspice ${{env.version}}
+          tag_name: v${{env.version}}
   
